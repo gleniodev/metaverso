@@ -1,16 +1,24 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
-    './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
-    './src/components/**/*.{js,ts,jsx,tsx,mdx}',
-    './src/app/**/*.{js,ts,jsx,tsx,mdx}',
+    './src/**/*.tsx',
   ],
   theme: {
+    
     extend: {
-      backgroundImage: {
-        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-        'gradient-conic':
-          'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
+      gridTemplateColumns: {
+        app: 'minmax(14rem, 16rem) 1fr',
+      },
+      colors: {
+        'metaverso-blue-ligth': '#007ff5',
+        'metaverso-blue-dark': '#0261ba',
+        'metaverso-white': '#ffffff'
+      },
+      backgroundImage: {        
+        'gradient-metaverso-dark': 'linear-gradient(180deg, #017cf5 10%, #033d75 100%)',
+        'gradient-metaverso-ligth': 'linear-gradient(360deg, #f0f3f1 10%, #E2E8E3  100%)',
+        'gradient-metaverso-blue': 'linear-gradient(180deg, #017cf5 10%, #033d75 100%);',
+        'gradient-metaverso-grey': 'linear-gradient(180deg, #f2f5f8 10%, #f7fafc 100%);'
       },
     },
   },

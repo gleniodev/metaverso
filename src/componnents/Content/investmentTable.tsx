@@ -1,5 +1,5 @@
-import { useTable, Column, useGlobalFilter } from 'react-table';
-import { InvestmentType } from '../../Types/investmentType';
+import { useTable, Column, useGlobalFilter, useSortBy } from "react-table";
+import { InvestmentType } from "../../Types/investmentType";
 
 interface InvestmentTableProps {
   data: InvestmentType[];
@@ -7,26 +7,45 @@ interface InvestmentTableProps {
 }
 
 export function InvestmentTable({ data, columns }: InvestmentTableProps) {
-  const { getTableProps, getTableBodyProps, state, setGlobalFilter, headerGroups, rows, prepareRow } = useTable({
-    columns,
-    data,
-  }, useGlobalFilter);
+  const {
+    getTableProps,
+    getTableBodyProps,
+    state,
+    // @ts-ignore
+    setGlobalFilter,
+    headerGroups,
+    rows,
+    prepareRow,
+  } = useTable(
+    {
+      columns,
+      data,
+    },
+    useGlobalFilter,
+    useSortBy,
+  );
 
   return (
     <div>
       <input
-        value={(state as any).globalFilter || ''}
+        value={(state as any).globalFilter || ""}
         onChange={(e) => setGlobalFilter(e.target.value || undefined)}
         placeholder="Buscar..."
-        className="p-2 rounded-xl w-full mb-4 bg-metaverso-blue-ligth"
-      />    
+        className="mb-8 w-full rounded-md border p-2 focus:border-blue-500 focus:outline-none"
+      />
       <table {...getTableProps()}>
         <thead>
           {headerGroups.map((headerGroup) => (
             <tr {...headerGroup.getHeaderGroupProps()} key={headerGroup.id}>
-              {headerGroup.headers.map((column) => (
-                <th {...column.getHeaderProps()} key={column.id}>
-                  {column.render('Header')}
+              {headerGroup.headers.map((column: any) => (
+                <th
+                  {...column.getHeaderProps(column.getSortByToggleProps())}
+                  key={column.id}
+                >
+                  {column.render("Header")}
+                  <span className="text-metaverso-blue-dark">
+                    {column.isSorted ? (column.isSortedDesc ? "▼" : "▲") : ""}
+                  </span>
                 </th>
               ))}
             </tr>
@@ -39,7 +58,7 @@ export function InvestmentTable({ data, columns }: InvestmentTableProps) {
               <tr {...row.getRowProps()} key={row.id}>
                 {row.cells.map((cell) => (
                   <td {...cell.getCellProps()} key={cell.column.id}>
-                    {cell.render('Cell')}
+                    {cell.render("Cell")}
                   </td>
                 ))}
               </tr>

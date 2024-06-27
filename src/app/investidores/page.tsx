@@ -10,6 +10,7 @@ import { InvestorTable } from "@/componnents/Content/investorTable";
 import { AddButton } from "@/componnents/Ui/addButton";
 import { EditButton } from "@/componnents/Ui/editButton";
 import { DeleteButton } from "@/componnents/Ui/deleteButton";
+import { InvestorForm } from "@/componnents/Content/investorForm";
 
 const InvestorList: React.FC = () => {
   const [investors, setInvestors] = useState<InvestorType[]>([]);
@@ -65,11 +66,8 @@ const InvestorList: React.FC = () => {
   }
 
   return (
-    <div className="">
-      <header className="mb-8 flex justify-between">
-        <h1 className="text-2xl font-bold">Investidores</h1>
-        <AddButton />
-      </header>
+    <div>
+      <InvestorForm />
       <InvestorTable data={investors} columns={investorColumns} />
     </div>
   );

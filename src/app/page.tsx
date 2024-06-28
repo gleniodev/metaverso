@@ -1,9 +1,7 @@
-
 export default function Home() {
   return (
-    <main className='min-h-screen bg-white shadow-xl rounded-3xl px-5 py-8'>
-            
-            <h1>conteudo</h1>
-        </main>
-  )
+    <main className="min-h-screen rounded-3xl bg-white px-5 py-8 shadow-xl">
+      <h1>conteudo</h1>
+    </main>
+  );
 }

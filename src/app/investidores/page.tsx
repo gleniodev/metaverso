@@ -12,10 +12,12 @@ import { EditButton } from "@/componnents/Ui/editButton";
 import { DeleteButton } from "@/componnents/Ui/deleteButton";
 import { InvestorForm } from "@/componnents/Content/investorForm";
 
+// Estado para armazenar a lista de investidores e controlar o carregamento
 const InvestorList: React.FC = () => {
   const [investors, setInvestors] = useState<InvestorType[]>([]);
   const [loading, setLoading] = useState(true);
 
+  // useEffect para buscar os dados dos investidores na montagem do componente
   useEffect(() => {
     const fetchInvestors = async () => {
       try {
@@ -30,6 +32,7 @@ const InvestorList: React.FC = () => {
     fetchInvestors();
   }, []);
 
+  // Definição das colunas da tabela de investidores
   const investorColumns: Column<any>[] = React.useMemo(
     () => [
       { Header: "ID", accessor: "id" },
@@ -38,6 +41,7 @@ const InvestorList: React.FC = () => {
       {
         Header: "CPF",
         accessor: "cpf",
+        // Formatação do CPF no formato XXX.XXX.XXX-XX
         Cell: ({ value }) => {
           return value.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4");
         },
@@ -45,10 +49,12 @@ const InvestorList: React.FC = () => {
       {
         Header: "Nascimento",
         accessor: "dataNascimento",
+        // Formatação da data de nascimento no formato dd/MM/yyyy
         Cell: ({ value }) => {
           return format(new Date(value), "dd/MM/yyyy");
         },
       },
+      // Coluna para botões de ação (editar e deletar)
       {
         Header: "Ações",
         // Cell: ({ row }) => (
@@ -60,11 +66,11 @@ const InvestorList: React.FC = () => {
     ],
     [],
   );
-
+  // Exibe uma mensagem de carregamento enquanto os dados estão sendo buscados
   if (loading) {
     return <div>Carregando...</div>;
   }
-
+  // Retorna o formulário para adicionar novos investidores e tabela para exibi a lista de investidores
   return (
     <div>
       <InvestorForm />

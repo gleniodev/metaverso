@@ -3,7 +3,7 @@ export interface InvestmentType {
   investidorId: number;
   nomeInvestidor: string;
   ativoId: number;
-  nomeativo: string;
+  nomeAtivo: string;
   valor: number;
   dataInvestimento: string;
   rendimento: number;

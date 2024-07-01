@@ -1,22 +1,27 @@
 "use client";
 
-import React from "react";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Column } from "react-table";
 import { format } from "date-fns";
 import { InvestorType } from "../../Types/investorType";
-import { getInvestor } from "@/services/investorService";
+import { deleteInvestor, getInvestor } from "@/services/investorService";
 import { InvestorTable } from "@/componnents/Content/investorTable";
-import { EditButton } from "@/componnents/Ui/editButton";
-import { DeleteButton } from "@/componnents/Ui/deleteButton";
-import { InvestorForm } from "@/componnents/Content/investorForm";
+import { AddInvestorForm } from "@/componnents/Content/AddInvestorForm";
+import { EditInvestorForm } from "@/componnents/Content/EditInvestorForm";
+import * as Dialog from "@radix-ui/react-dialog";
 
-// Estado para armazenar a lista de investidores e controlar o carregamento
-const InvestorList: React.FC = () => {
+const InvestorPage: React.FC = () => {
   const [investors, setInvestors] = useState<InvestorType[]>([]);
   const [loading, setLoading] = useState(true);
+  const [selectedInvestor, setSelectedInvestor] = useState<InvestorType | null>(
+    null,
+  );
+  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
+  const [investorToDelete, setInvestorToDelete] = useState<InvestorType | null>(
+    null,
+  );
 
-  // useEffect para buscar os dados dos investidores na montagem do componente
+  // Função para buscar os dados dos investidores na montagem do componente
   const fetchInvestors = async () => {
     try {
       const data = await getInvestor();
@@ -28,12 +33,43 @@ const InvestorList: React.FC = () => {
     }
   };
 
+  // useEffect para buscar os dados na montagem do componente
   useEffect(() => {
     fetchInvestors();
   }, []);
 
+  // Função de callback para atualizar os dados da tabela
   const handleDataUpdate = () => {
-    fetchInvestors(); // Atualiza os dados da tabela
+    fetchInvestors();
+  };
+
+  // Função para iniciar a edição de um investidor
+  const handleEdit = (investor: InvestorType) => {
+    setSelectedInvestor(investor);
+  };
+
+  // Função para iniciar a exclusão de um investidor
+  const handleDelete = (investor: InvestorType) => {
+    setInvestorToDelete(investor);
+    setIsDeleteDialogOpen(true);
+  };
+
+  // Função para confirmar a exclusão de um investidor
+  const confirmDelete = async () => {
+    if (investorToDelete) {
+      try {
+        await deleteInvestor(investorToDelete.id);
+        handleDataUpdate(); // Atualiza os dados da tabela após a exclusão
+        setIsDeleteDialogOpen(false);
+      } catch (error) {
+        console.error("Erro ao deletar investidor:", error);
+      }
+    }
+  };
+
+  // Função para resetar o formulário ao fechar o modal
+  const handleCloseForm = () => {
+    setSelectedInvestor(null);
   };
 
   // Definição das colunas da tabela de investidores
@@ -61,26 +97,78 @@ const InvestorList: React.FC = () => {
       // Coluna para botões de ação (editar e deletar)
       {
         Header: "Ações",
-        // Cell: ({ row }) => (
-        //   <>
-        //       <EditButton onClick={() => handleEdit(row.original.id)} />
-        //       <DeleteButton onClick={() => handleDelete(row.original.id)} />
-        //   </>
+        Cell: ({ row }) => (
+          <div className="flex">
+            <button
+              onClick={() => handleEdit(row.original)}
+              className="text-indigo-600 hover:text-indigo-900"
+            >
+              Editar
+            </button>
+            <button
+              onClick={() => handleDelete(row.original)}
+              className="ml-4 text-red-600 hover:text-red-900"
+            >
+              Deletar
+            </button>
+          </div>
+        ),
       },
     ],
     [],
   );
-  // Exibe uma mensagem de carregamento enquanto os dados estão sendo buscados
+
   if (loading) {
     return <div>Carregando...</div>;
   }
-  // Retorna o formulário para adicionar novos investidores e tabela para exibi a lista de investidores
+
   return (
     <div>
-      <InvestorForm onDataUpdate={handleDataUpdate} />
-      <InvestorTable data={investors} columns={investorColumns} />
+      <AddInvestorForm onDataUpdate={handleDataUpdate} />
+      {selectedInvestor && (
+        <EditInvestorForm
+          onDataUpdate={handleDataUpdate}
+          selectedInvestor={selectedInvestor}
+          setSelectedInvestor={setSelectedInvestor}
+          onClose={handleCloseForm}
+        />
+      )}
+      <InvestorTable
+        data={investors}
+        columns={investorColumns}
+        onEdit={handleEdit}
+        onDelete={handleDelete}
+      />
+      <Dialog.Root
+        open={isDeleteDialogOpen}
+        onOpenChange={setIsDeleteDialogOpen}
+      >
+        <Dialog.Overlay className="fixed inset-0 bg-black opacity-30" />
+        <Dialog.Content className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transform rounded bg-white p-6 shadow-md">
+          <Dialog.Title className="text-lg font-bold">
+            Confirmar Exclusão
+          </Dialog.Title>
+          <Dialog.Description className="mt-2">
+            Tem certeza que deseja excluir este investidor?
+          </Dialog.Description>
+          <div className="mt-4 flex justify-end space-x-2">
+            <button
+              onClick={() => setIsDeleteDialogOpen(false)}
+              className="rounded bg-gray-200 px-4 py-2 text-black hover:bg-gray-300"
+            >
+              Cancelar
+            </button>
+            <button
+              onClick={confirmDelete}
+              className="rounded bg-red-500 px-4 py-2 text-white hover:bg-red-600"
+            >
+              Excluir
+            </button>
+          </div>
+        </Dialog.Content>
+      </Dialog.Root>
     </div>
   );
 };
 
-export default InvestorList;
+export default InvestorPage;

@@ -10,6 +10,7 @@ module.exports = {
         "metaverso-blue-ligth": "#007ff5",
         "metaverso-blue-dark": "#0261ba",
         "metaverso-white": "#ffffff",
+        "metaverso-red": "#f40101",
       },
       backgroundImage: {
         "gradient-metaverso-dark":

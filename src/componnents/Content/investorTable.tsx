@@ -12,9 +12,16 @@ import { ArrowLeft, ArrowRight } from "lucide-react";
 interface InvestorTableProps {
   data: InvestorType[];
   columns: Column[];
+  onEdit: (investor: InvestorType) => void; // Adicionado onEdit para editar investidor
+  onDelete: (investor: InvestorType) => void; // Adicionado onDelete para deletar investidor
 }
 
-export function InvestorTable({ data, columns }: InvestorTableProps) {
+export function InvestorTable({
+  data,
+  columns,
+  onEdit,
+  onDelete,
+}: InvestorTableProps) {
   const {
     getTableProps,
     getTableBodyProps,
@@ -44,7 +51,7 @@ export function InvestorTable({ data, columns }: InvestorTableProps) {
     useSortBy,
     usePagination,
   );
-
+  // @ts-ignore
   const { pageIndex } = state;
 
   return (

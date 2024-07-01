@@ -1,36 +1,45 @@
-import React, { useEffect, useState } from "react";
 import * as z from "zod";
 import * as Dialog from "@radix-ui/react-dialog";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { createInvestment } from "../../services/investmentService";
-import { getInvestor } from "../../services/investorService";
-import { getAtivo } from "../../services/ativoService";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useRef, useEffect, useState } from "react";
+import CurrencyInput from "react-currency-input-field"; // Importa a biblioteca de máscara de entrada
+import { InvestmentType } from "@/Types/investmentType";
+import { getInvestor } from "@/services/investorService";
+import { getAtivo } from "@/services/ativoService";
 
-// Schema de validação para o formulário de investimentos usando Zod
+// Definindo configurações de validação do formulário com zod
 export const investmentSchema = z.object({
-  nomeInvestidor: z.string().nonempty("Investidor é obrigatório"), // Campo obrigatório para o nome do investidor
-  nomeAtivo: z.string().nonempty("Ativo é obrigatório"), // Campo obrigatório para o nome do ativo
-  valor: z.number().positive("Valor deve ser positivo"), // Campo obrigatório e deve ser um número positivo
-  dataInvestimento: z.string().nonempty("Data de investimento é obrigatória"), // Campo obrigatório para a data de investimento
-  rendimento: z.number().positive("Rendimento deve ser positivo"), // Campo obrigatório e deve ser um número positivo
+  nomeInvestidor: z.string().nonempty("Nome do investidor é obrigatório"),
+  nomeAtivo: z.string().nonempty("Nome do ativo é obrigatório"),
+  valor: z
+    .string()
+    .nonempty("Valor é obrigatório")
+    .transform((val) => parseFloat(val.replace(/[^\d.-]/g, "")))
+    .refine((val) => !isNaN(val), { message: "Valor deve ser um número" }),
+  dataInvestimento: z.string().nonempty("Data de investimento é obrigatória"),
+  rendimento: z
+    .string()
+    .nonempty("Rendimento é obrigatório")
+    .transform((val) => parseFloat(val.replace(/[^\d.-]/g, "")))
+    .refine((val) => !isNaN(val), { message: "Rendimento deve ser um número" }),
 });
 
-// Tipo inferido do schema de validação
 type InvestmentFormInputs = z.infer<typeof investmentSchema>;
 
-interface InvestmentFormProps {
+interface AddInvestmentFormProps {
   onDataUpdate: () => void;
 }
 
-export function InvestmentForm({ onDataUpdate }: InvestmentFormProps) {
-  // Configuração do hook useForm com validação Zod
+export function AddInvestmentForm({ onDataUpdate }: AddInvestmentFormProps) {
   const {
     register,
     reset,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm<InvestmentFormInputs>({
     resolver: zodResolver(investmentSchema),
@@ -58,21 +67,23 @@ export function InvestmentForm({ onDataUpdate }: InvestmentFormProps) {
     fetchData();
   }, []);
 
-  // Função para fechar o modal programaticamente
+  // Função para fechar o modal e resetar o formulário
   const closeModal = () => {
-    document.getElementById("dialog-close-btn")?.click();
+    reset();
   };
 
-  // Função para lidar com o envio do formulário
+  // Função para submeter o formulário e criar um novo investimento
   const onSubmit = async (data: InvestmentFormInputs) => {
     try {
-      await createInvestment(data);
-      toast.success("Investimento adicionado com Sucesso!");
-      setInterval(closeModal, 3000); // Fechar o modal programaticamente após 3 segundos
-      onDataUpdate(); // Chamar a função de atualização dos dados da tabela
+      await createInvestment(data as unknown as InvestmentType);
+      toast.success("Investimento adicionado com sucesso!");
+      setTimeout(() => {
+        closeModal();
+        onDataUpdate();
+      }, 3000);
     } catch (error) {
-      console.error("Erro ao adicionar investimento:", error);
-      toast.error("Erro ao adicionar investimento.");
+      console.error("Erro ao salvar investimento:", error);
+      toast.error("Erro ao salvar investimento.");
     }
   };
 
@@ -80,9 +91,18 @@ export function InvestmentForm({ onDataUpdate }: InvestmentFormProps) {
     <header className="mb-8 flex justify-between">
       <h1 className="text-2xl font-bold">INVESTIMENTOS</h1>
 
-      <Dialog.Root>
+      <Dialog.Root
+        onOpenChange={(isOpen) => {
+          if (!isOpen) {
+            closeModal();
+          }
+        }}
+      >
         <Dialog.Trigger asChild>
-          <button className="bg-metaverso-blue-ligth text-metaverso-white hover:bg-metaverso-blue-dark h-10 rounded-lg px-6 font-bold transition duration-300">
+          <button
+            id="add-btn"
+            className="bg-metaverso-blue-ligth text-metaverso-white hover:bg-metaverso-blue-dark h-10 rounded-lg px-6 font-bold transition duration-300"
+          >
             Adicionar
           </button>
         </Dialog.Trigger>
@@ -91,15 +111,15 @@ export function InvestmentForm({ onDataUpdate }: InvestmentFormProps) {
           <Dialog.Overlay className="fixed inset-0 h-screen w-full bg-black opacity-65" />
 
           <Dialog.Content
-            onEscapeKeyDown={(e) => e.preventDefault()} // Prevenir fechamento ao pressionar tecla ESC
-            onPointerDownOutside={(e) => e.preventDefault()} // Prevenir fechamento ao clicar fora do modal
-            className="bg-metaverso-white border-metaverso-blue-ligth fixed left-1/2 top-1/2 flex h-[40rem] w-[34rem] -translate-x-1/2 -translate-y-1/2 transform flex-col rounded-3xl border-4 px-10 py-10 shadow-md"
+            onEscapeKeyDown={(e) => e.preventDefault()}
+            onPointerDownOutside={(e) => e.preventDefault()}
+            className="bg-metaverso-white border-metaverso-blue-ligth fixed left-1/2 top-1/2 z-[50] flex h-[40rem] w-[34rem] -translate-x-1/2 -translate-y-1/2 transform flex-col rounded-3xl border-4 px-10 py-10 shadow-md"
           >
             <Dialog.Title className="mb-5 text-center text-lg font-bold text-black">
-              NOVO INVESTIMENTO
+              Novo Investimento
             </Dialog.Title>
             <form
-              onSubmit={handleSubmit(onSubmit)} // Handle do envio do formulário
+              onSubmit={handleSubmit(onSubmit)}
               className="flex h-full w-full flex-col justify-around"
             >
               <div className="w-full">
@@ -148,11 +168,23 @@ export function InvestmentForm({ onDataUpdate }: InvestmentFormProps) {
                 <label htmlFor="valor" className="font-semibold">
                   Valor
                 </label>
-                <input
-                  type="number"
-                  step="0.01"
+                <CurrencyInput
+                  id="valor"
+                  placeholder="R$ 0,00"
+                  decimalsLimit={2}
+                  decimalSeparator=","
+                  groupSeparator="."
+                  prefix="R$ "
                   className="w-full rounded-md border border-slate-400 p-2 focus:border-blue-500 focus:shadow-md focus:outline-none"
-                  {...register("valor", { valueAsNumber: true })} // Registro do campo no react-hook-form
+                  onValueChange={(value) =>
+                    setValue(
+                      "valor",
+                      value
+                        ? parseFloat(value.replace(/\./g, "").replace(",", "."))
+                        : 0,
+                    )
+                  }
+                  {...register("valor")}
                 />
                 {errors.valor && (
                   <span className="text-red-500">{errors.valor.message}</span>
@@ -165,7 +197,7 @@ export function InvestmentForm({ onDataUpdate }: InvestmentFormProps) {
                 <input
                   type="date"
                   className="w-full rounded-md border border-slate-400 p-2 focus:border-blue-500 focus:shadow-md focus:outline-none"
-                  {...register("dataInvestimento")} // Registro do campo no react-hook-form
+                  {...register("dataInvestimento")}
                 />
                 {errors.dataInvestimento && (
                   <span className="text-red-500">
@@ -177,11 +209,23 @@ export function InvestmentForm({ onDataUpdate }: InvestmentFormProps) {
                 <label htmlFor="rendimento" className="font-semibold">
                   Rendimento
                 </label>
-                <input
-                  type="number"
-                  step="0.01"
+                <CurrencyInput
+                  id="rendimento"
+                  placeholder="R$ 0,00"
+                  decimalsLimit={2}
+                  decimalSeparator=","
+                  groupSeparator="."
+                  prefix="R$ "
                   className="w-full rounded-md border border-slate-400 p-2 focus:border-blue-500 focus:shadow-md focus:outline-none"
-                  {...register("rendimento", { valueAsNumber: true })} // Registro do campo no react-hook-form
+                  onValueChange={(value) =>
+                    setValue(
+                      "rendimento",
+                      value
+                        ? parseFloat(value.replace(/\./g, "").replace(",", "."))
+                        : 0,
+                    )
+                  }
+                  {...register("rendimento")}
                 />
                 {errors.rendimento && (
                   <span className="text-red-500">
@@ -200,9 +244,8 @@ export function InvestmentForm({ onDataUpdate }: InvestmentFormProps) {
 
                 <Dialog.Close asChild>
                   <button
-                    id="dialog-close-btn"
                     type="button"
-                    onClick={() => reset()} // Resetar formulário ao cancelar
+                    onClick={closeModal}
                     className="bg-metaverso-blue-ligth text-metaverso-white hover:bg-metaverso-blue-dark h-10 min-w-28 rounded-lg px-6 font-bold transition duration-300"
                   >
                     Cancelar

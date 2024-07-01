@@ -5,16 +5,23 @@ import {
   useSortBy,
   usePagination,
 } from "react-table";
+import { InvestmentType } from "../../Types/investmentType";
 import "@/app/globals.css";
 import { ArrowLeft, ArrowRight } from "lucide-react";
-import { InvestmentType } from "@/Types/investmentType";
 
 interface InvestmentTableProps {
   data: InvestmentType[];
   columns: Column[];
+  onEdit: (investment: InvestmentType) => void;
+  onDelete: (investment: InvestmentType) => void;
 }
 
-export function InvestmentTable({ data, columns }: InvestmentTableProps) {
+export function InvestmentTable({
+  data,
+  columns,
+  onEdit,
+  onDelete,
+}: InvestmentTableProps) {
   const {
     getTableProps,
     getTableBodyProps,
@@ -44,7 +51,7 @@ export function InvestmentTable({ data, columns }: InvestmentTableProps) {
     useSortBy,
     usePagination,
   );
-
+  // @ts-ignore
   const { pageIndex } = state;
 
   return (

@@ -1,32 +1,11 @@
 {
   "investidores": [
     {
-      "id": "1",
-      "nome": "João Silva",
-      "email": "joao.silva@example.com",
-      "cpf": "12345678901",
-      "dataNascimento": "1980-01-01"
-    },
-    {
-      "id": "2",
-      "nome": "Maria Oliveira",
-      "email": "maria.oliveira@example.com",
-      "cpf": "10987654321",
-      "dataNascimento": "1990-05-15"
-    },
-    {
-      "id": "3",
-      "nome": "Carlos Souza",
-      "email": "carlos.souza@example.com",
-      "cpf": "12345678902",
-      "dataNascimento": "1975-02-20"
-    },
-    {
-      "id": "4",
       "nome": "Ana Pereira",
       "email": "ana.pereira@example.com",
       "cpf": "12345678903",
-      "dataNascimento": "1985-03-30"
+      "dataNascimento": "1985-03-30",
+      "id": "4"
     },
     {
       "id": "5",
@@ -36,11 +15,11 @@
       "dataNascimento": "1995-04-10"
     },
     {
-      "id": "6",
-      "nome": "Fernanda Lima",
+      "nome": "Fernanda Maria",
       "email": "fernanda.lima@example.com",
       "cpf": "12345678905",
-      "dataNascimento": "1988-06-15"
+      "dataNascimento": "1988-06-15",
+      "id": "6"
     },
     {
       "id": "7",
@@ -167,13 +146,6 @@
       "cpf": "36527945612",
       "dataNascimento": "2000-06-25",
       "id": "24"
-    },
-    {
-      "nome": "Pat SImons",
-      "email": "pat@bol.com",
-      "cpf": "89652478932",
-      "dataNascimento": "2001-02-23",
-      "id": "OhDE9uK"
     }
   ],
   "ativos": [
@@ -224,7 +196,7 @@
       "investidorId": "7",
       "nomeInvestidor": "Rafael Alves",
       "ativoId": "1",
-      "nomeativo": "Ações",
+      "nomeAtivo": "Tesouro Direto",
       "valor": 10000,
       "dataInvestimento": "2023-01-01",
       "rendimento": 1500
@@ -234,7 +206,7 @@
       "investidorId": "12",
       "nomeInvestidor": "Carla Souza",
       "ativoId": "2",
-      "nomeativo": "Fundos Imobiliários",
+      "nomeAtivo": "Fundos Imobiliários",
       "valor": 5000,
       "dataInvestimento": "2023-02-01",
       "rendimento": 500
@@ -244,7 +216,7 @@
       "investidorId": "3",
       "nomeInvestidor": "Carlos Souza",
       "ativoId": "3",
-      "nomeativo": "Tesouro Direto",
+      "nomeAtivo": "Tesouro Direto",
       "valor": 2000,
       "dataInvestimento": "2023-03-01",
       "rendimento": 200
@@ -254,7 +226,7 @@
       "investidorId": "10",
       "nomeInvestidor": "Aline Santos",
       "ativoId": "4",
-      "nomeativo": "CDB",
+      "nomeAtivo": "CDB",
       "valor": 15000,
       "dataInvestimento": "2023-04-01",
       "rendimento": 1800
@@ -264,7 +236,7 @@
       "investidorId": "5",
       "nomeInvestidor": "Paulo Costa",
       "ativoId": "5",
-      "nomeativo": "LCI",
+      "nomeAtivo": "LCI",
       "valor": 3000,
       "dataInvestimento": "2023-05-01",
       "rendimento": 300
@@ -274,7 +246,7 @@
       "investidorId": "17",
       "nomeInvestidor": "Felipe Rodrigues",
       "ativoId": "6",
-      "nomeativo": "LCA",
+      "nomeAtivo": "LCA",
       "valor": 4000,
       "dataInvestimento": "2023-06-01",
       "rendimento": 400
@@ -284,7 +256,7 @@
       "investidorId": "18",
       "nomeInvestidor": "Renata Batista",
       "ativoId": "7",
-      "nomeativo": "Debêntures",
+      "nomeAtivo": "Debêntures",
       "valor": 7000,
       "dataInvestimento": "2023-07-01",
       "rendimento": 800
@@ -294,7 +266,7 @@
       "investidorId": "8",
       "nomeInvestidor": "Juliana Martins",
       "ativoId": "8",
-      "nomeativo": "Fundos de Investimento",
+      "nomeAtivo": "Fundos de Investimento",
       "valor": 6000,
       "dataInvestimento": "2023-08-01",
       "rendimento": 700
@@ -304,7 +276,7 @@
       "investidorId": "15",
       "nomeInvestidor": "Bruno Ribeiro",
       "ativoId": "9",
-      "nomeativo": "Criptomoedas",
+      "nomeAtivo": "Criptomoedas",
       "valor": 12000,
       "dataInvestimento": "2023-09-01",
       "rendimento": 2000
@@ -314,7 +286,7 @@
       "investidorId": "2",
       "nomeInvestidor": "Maria Oliveira",
       "ativoId": "10",
-      "nomeativo": "ETFs",
+      "nomeAtivo": "ETFs",
       "valor": 8000,
       "dataInvestimento": "2023-10-01",
       "rendimento": 900
@@ -324,7 +296,7 @@
       "investidorId": "1",
       "nomeInvestidor": "João Silva",
       "ativoId": "1",
-      "nomeativo": "Ações",
+      "nomeAtivo": "Ações",
       "valor": 5000,
       "dataInvestimento": "2023-11-01",
       "rendimento": 600
@@ -334,7 +306,7 @@
       "investidorId": "11",
       "nomeInvestidor": "Rodrigo Barros",
       "ativoId": "2",
-      "nomeativo": "Fundos Imobiliários",
+      "nomeAtivo": "Fundos Imobiliários",
       "valor": 10000,
       "dataInvestimento": "2023-12-01",
       "rendimento": 1200
@@ -344,7 +316,7 @@
       "investidorId": "6",
       "nomeInvestidor": "Fernanda Lima",
       "ativoId": "3",
-      "nomeativo": "Tesouro Direto",
+      "nomeAtivo": "Tesouro Direto",
       "valor": 3000,
       "dataInvestimento": "2024-01-01",
       "rendimento": 350
@@ -354,7 +326,7 @@
       "investidorId": "4",
       "nomeInvestidor": "Ana Pereira",
       "ativoId": "4",
-      "nomeativo": "CDB",
+      "nomeAtivo": "CDB",
       "valor": 7000,
       "dataInvestimento": "2024-02-01",
       "rendimento": 900
@@ -364,7 +336,7 @@
       "investidorId": "14",
       "nomeInvestidor": "Vanessa Almeida",
       "ativoId": "5",
-      "nomeativo": "LCI",
+      "nomeAtivo": "LCI",
       "valor": 9000,
       "dataInvestimento": "2024-03-01",
       "rendimento": 1100
@@ -374,7 +346,7 @@
       "investidorId": "9",
       "nomeInvestidor": "Gustavo Ferreira",
       "ativoId": "6",
-      "nomeativo": "LCA",
+      "nomeAtivo": "LCA",
       "valor": 2000,
       "dataInvestimento": "2024-04-01",
       "rendimento": 250
@@ -384,7 +356,7 @@
       "investidorId": "19",
       "nomeInvestidor": "Leandro Faria",
       "ativoId": "7",
-      "nomeativo": "Debêntures",
+      "nomeAtivo": "Debêntures",
       "valor": 4000,
       "dataInvestimento": "2024-05-01",
       "rendimento": 500
@@ -394,7 +366,7 @@
       "investidorId": "16",
       "nomeInvestidor": "Patrícia Carvalho",
       "ativoId": "8",
-      "nomeativo": "Fundos de Investimento",
+      "nomeAtivo": "Fundos de Investimento",
       "valor": 6000,
       "dataInvestimento": "2024-06-01",
       "rendimento": 700
@@ -404,7 +376,7 @@
       "investidorId": "13",
       "nomeInvestidor": "Marcelo Lima",
       "ativoId": "9",
-      "nomeativo": "Criptomoedas",
+      "nomeAtivo": "Criptomoedas",
       "valor": 10000,
       "dataInvestimento": "2024-07-01",
       "rendimento": 1500
@@ -414,7 +386,7 @@
       "investidorId": "20",
       "nomeInvestidor": "Luciana Borges",
       "ativoId": "10",
-      "nomeativo": "ETFs",
+      "nomeAtivo": "ETFs",
       "valor": 8000,
       "dataInvestimento": "2024-08-01",
       "rendimento": 1000
@@ -428,12 +400,12 @@
       "rendimento": 250
     },
     {
-      "id": "22",
       "nomeInvestidor": "Rafael Alves",
-      "nomeAtivo": "CDB",
+      "nomeAtivo": "CDI",
       "valor": 100,
       "dataInvestimento": "2024-04-25",
-      "rendimento": 50
+      "rendimento": 50,
+      "id": "22"
     },
     {
       "id": "23",

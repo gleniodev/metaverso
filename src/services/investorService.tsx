@@ -16,31 +16,32 @@ export const getInvestor = async (): Promise<InvestorType[]> => {
 export const createInvestor = async (
   investor: Omit<InvestorType, "id">,
 ): Promise<InvestorType> => {
-  const response = await fetch(API_URL, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(investor),
-  });
-  if (!response.ok) {
-    throw new Error("Erro ao criar investidor");
+  try {
+    const response = await axios.post<InvestorType>(API_URL, investor);
+    return response.data;
+  } catch (error) {
+    console.error("Erro ao criar investidor", error);
+    throw error;
   }
-  return response.json();
 };
 
 export const updateInvestor = async (
   investor: Omit<InvestorType, "id">,
-): Promise<InvestorType> => {
-  const response = await fetch(API_URL, {
-    method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(investor),
-  });
-  if (!response.ok) {
-    throw new Error("Erro ao atualizar investidor!");
+): Promise<InvestorType[]> => {
+  try {
+    const response = await axios.put<InvestorType[]>(API_URL);
+    return response.data;
+  } catch (error) {
+    console.error("Erro ao atualizar investidor", error);
+    throw error;
   }
-  return response.json();
+};
+
+export const deleteInvestor = async (id: number): Promise<void> => {
+  try {
+    await axios.delete(`${API_URL}/${id}`);
+  } catch (error) {
+    console.error("Erro ao deletar investidor", error);
+    throw error;
+  }
 };

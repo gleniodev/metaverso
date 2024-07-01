@@ -7,7 +7,6 @@ import { format } from "date-fns";
 import { InvestorType } from "../../Types/investorType";
 import { getInvestor } from "@/services/investorService";
 import { InvestorTable } from "@/componnents/Content/investorTable";
-import { AddButton } from "@/componnents/Ui/addButton";
 import { EditButton } from "@/componnents/Ui/editButton";
 import { DeleteButton } from "@/componnents/Ui/deleteButton";
 import { InvestorForm } from "@/componnents/Content/investorForm";
@@ -18,19 +17,25 @@ const InvestorList: React.FC = () => {
   const [loading, setLoading] = useState(true);
 
   // useEffect para buscar os dados dos investidores na montagem do componente
+
+  const fetchInvestors = async () => {
+    try {
+      const data = await getInvestor();
+      setInvestors(data);
+      setLoading(false);
+    } catch (error) {
+      console.error("Error fetching investors:", error);
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
-    const fetchInvestors = async () => {
-      try {
-        const data = await getInvestor();
-        setInvestors(data);
-        setLoading(false);
-      } catch (error) {
-        console.error("Error fetching investors:", error);
-        setLoading(false);
-      }
-    };
     fetchInvestors();
   }, []);
+
+  const handleDataUpdate = () => {
+    fetchInvestors(); // Atualiza os dados da tabela
+  };
 
   // Definição das colunas da tabela de investidores
   const investorColumns: Column<any>[] = React.useMemo(
@@ -73,7 +78,7 @@ const InvestorList: React.FC = () => {
   // Retorna o formulário para adicionar novos investidores e tabela para exibi a lista de investidores
   return (
     <div>
-      <InvestorForm />
+      <InvestorForm onDataUpdate={handleDataUpdate} />
       <InvestorTable data={investors} columns={investorColumns} />
     </div>
   );

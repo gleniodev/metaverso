@@ -13,6 +13,10 @@ interface InvestorFormProps {
   data: InvestorType[];
 }
 
+interface onDataUpdateProps {
+  onDataUpdate: () => void;
+}
+
 // Definindo configuraçãoes de validação do formulário com zod
 export const investorSchema = z.object({
   nome: z
@@ -34,7 +38,7 @@ export const investorSchema = z.object({
 
 type InvestorFormInputs = z.infer<typeof investorSchema>;
 
-export function InvestorForm() {
+export function InvestorForm({ onDataUpdate }: onDataUpdateProps) {
   const {
     register,
     reset,
@@ -52,8 +56,8 @@ export function InvestorForm() {
     try {
       await createInvestor(data);
       toast.success("Investidor adicionado com Sucesso!:");
-      // Fechar o modal programaticamente
-      setInterval(closeModal, 3000);
+      setInterval(closeModal, 3000); // Fechar o modal programaticamente
+      onDataUpdate(); // Chamar a função de atualização dos dados da tabela
     } catch (error) {
       console.error("Erro ao adicionar investidor:", error);
     }
@@ -61,7 +65,7 @@ export function InvestorForm() {
 
   return (
     <header className="mb-8 flex justify-between">
-      <h1 className="text-2xl font-bold">Investidores</h1>
+      <h1 className="text-2xl font-bold">INVESTIDORES</h1>
 
       <Dialog.Root>
         <Dialog.Trigger asChild>
@@ -73,9 +77,13 @@ export function InvestorForm() {
         <Dialog.Portal>
           <Dialog.Overlay className="fixed inset-0 h-screen w-full bg-black opacity-65" />
 
-          <Dialog.Content className="bg-metaverso-white border-metaverso-blue-ligth fixed left-1/2 top-1/2 flex h-[40rem] min-w-[40rem] -translate-x-1/2 -translate-y-1/2 transform flex-col rounded-3xl border-4 px-10 py-10 shadow-md">
-            <Dialog.Title className="mb-10 text-center text-lg font-bold text-black">
-              Novo Investidor
+          <Dialog.Content
+            onEscapeKeyDown={(e) => e.preventDefault()}
+            onPointerDownOutside={(e) => e.preventDefault()}
+            className="bg-metaverso-white border-metaverso-blue-ligth fixed left-1/2 top-1/2 flex h-[40rem] w-[34rem] -translate-x-1/2 -translate-y-1/2 transform flex-col rounded-3xl border-4 px-10 py-10 shadow-md"
+          >
+            <Dialog.Title className="mb-5 text-center text-lg font-bold text-black">
+              NOVO INVESTIDOR
             </Dialog.Title>
             <form
               onSubmit={handleSubmit(onSubmit)}
@@ -87,7 +95,7 @@ export function InvestorForm() {
                 </label>
                 <input
                   type="nome"
-                  className="w-full rounded-md border p-2 focus:border-blue-500 focus:outline-none"
+                  className="w-full rounded-md border border-slate-400 p-2 focus:border-blue-500 focus:shadow-md focus:outline-none"
                   {...register("nome")}
                 />
                 {errors.nome && (
@@ -100,7 +108,7 @@ export function InvestorForm() {
                 </label>
                 <input
                   type="email"
-                  className="w-full rounded-md border p-2 focus:border-blue-500 focus:outline-none"
+                  className="w-full rounded-md border border-slate-400 p-2 focus:border-blue-500 focus:shadow-md focus:outline-none"
                   {...register("email")}
                 />
                 {errors.email && (
@@ -113,7 +121,7 @@ export function InvestorForm() {
                 </label>
                 <input
                   type="text"
-                  className="w-full rounded-md border p-2 focus:border-blue-500 focus:outline-none"
+                  className="w-full rounded-md border border-slate-400 p-2 focus:border-blue-500 focus:shadow-md focus:outline-none"
                   {...register("cpf")}
                 />
                 {errors.cpf && (
@@ -126,7 +134,7 @@ export function InvestorForm() {
                 </label>
                 <input
                   type="date"
-                  className="w-full rounded-md border p-2 focus:border-blue-500 focus:outline-none"
+                  className="w-full rounded-md border border-slate-400 p-2 focus:border-blue-500 focus:shadow-md focus:outline-none"
                   {...register("dataNascimento")}
                 />
                 {errors.dataNascimento && (
@@ -138,7 +146,7 @@ export function InvestorForm() {
               <div className="flex w-full justify-center gap-5">
                 <button
                   type="submit"
-                  className="bg-metaverso-blue-ligth text-metaverso-white hover:bg-metaverso-blue-dark h-10 rounded-lg px-6 font-bold transition duration-300"
+                  className="bg-metaverso-blue-ligth text-metaverso-white hover:bg-metaverso-blue-dark h-10 min-w-28 rounded-lg px-6 font-bold transition duration-300"
                 >
                   Salvar
                 </button>
@@ -149,7 +157,7 @@ export function InvestorForm() {
                     id="dialog-close-btn"
                     type="button"
                     onClick={() => reset()}
-                    className="bg-metaverso-blue-ligth text-metaverso-white hover:bg-metaverso-blue-dark h-10 rounded-lg px-6 font-bold transition duration-300"
+                    className="bg-metaverso-blue-ligth text-metaverso-white hover:bg-metaverso-blue-dark h-10 min-w-28 rounded-lg px-6 font-bold transition duration-300"
                   >
                     Cancelar
                   </button>

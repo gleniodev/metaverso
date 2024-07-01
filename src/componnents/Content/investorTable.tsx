@@ -1,6 +1,13 @@
-import { useTable, Column, useGlobalFilter, useSortBy } from "react-table";
+import {
+  useTable,
+  Column,
+  useGlobalFilter,
+  useSortBy,
+  usePagination,
+} from "react-table";
 import { InvestorType } from "../../Types/investorType";
 import "@/app/globals.css";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 
 interface InvestorTableProps {
   data: InvestorType[];
@@ -15,7 +22,18 @@ export function InvestorTable({ data, columns }: InvestorTableProps) {
     // @ts-ignore
     setGlobalFilter,
     headerGroups,
-    rows,
+    // @ts-ignore
+    page,
+    // @ts-ignore
+    nextPage,
+    // @ts-ignore
+    previousPage,
+    // @ts-ignore
+    canPreviousPage,
+    // @ts-ignore
+    canNextPage,
+    // @ts-ignore
+    pageOptions,
     prepareRow,
   } = useTable(
     {
@@ -24,7 +42,10 @@ export function InvestorTable({ data, columns }: InvestorTableProps) {
     },
     useGlobalFilter,
     useSortBy,
+    usePagination,
   );
+
+  const { pageIndex } = state;
 
   return (
     <div>
@@ -53,11 +74,15 @@ export function InvestorTable({ data, columns }: InvestorTableProps) {
           ))}
         </thead>
         <tbody {...getTableBodyProps()}>
-          {rows.map((row) => {
+          {page.map((row: any) => {
             prepareRow(row);
             return (
-              <tr {...row.getRowProps()} key={row.id}>
-                {row.cells.map((cell) => (
+              <tr
+                {...row.getRowProps()}
+                key={row.id}
+                className="border-b border-zinc-200"
+              >
+                {row.cells.map((cell: any) => (
                   <td {...cell.getCellProps()} key={cell.column.id}>
                     {cell.render("Cell")}
                   </td>
@@ -67,6 +92,27 @@ export function InvestorTable({ data, columns }: InvestorTableProps) {
           })}
         </tbody>
       </table>
+      <div className="m-8 flex items-center justify-center gap-5 p-2">
+        <button
+          onClick={() => previousPage()}
+          disabled={!canPreviousPage}
+          className="bg-metaverso-blue-ligth text-metaverso-white hover:bg-metaverso-blue-dark flex h-10 w-10 items-center justify-center rounded-full font-bold transition duration-300 disabled:bg-slate-400"
+        >
+          <ArrowLeft />
+        </button>
+
+        <span>
+          Página <strong>{pageIndex + 1}</strong> de{" "}
+          <strong>{pageOptions.length}</strong>
+        </span>
+        <button
+          onClick={() => nextPage()}
+          disabled={!canNextPage}
+          className="bg-metaverso-blue-ligth text-metaverso-white hover:bg-metaverso-blue-dark flex h-10 w-10 items-center justify-center rounded-full font-bold transition duration-300 disabled:bg-slate-400"
+        >
+          <ArrowRight />
+        </button>
+      </div>
     </div>
   );
 }

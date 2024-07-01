@@ -17,7 +17,6 @@ const InvestorList: React.FC = () => {
   const [loading, setLoading] = useState(true);
 
   // useEffect para buscar os dados dos investidores na montagem do componente
-
   const fetchInvestors = async () => {
     try {
       const data = await getInvestor();

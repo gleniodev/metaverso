@@ -4,28 +4,28 @@ import { useEffect, useState } from "react";
 import { AtivoType } from "../../Types/ativoType";
 import { getAtivo } from "@/services/ativoService";
 import React from "react";
-import { ProductTable } from "../../componnents/Content/productTable";
+import { AtivoTable } from "../../componnents/Content/ativoTable";
 import { Column } from "react-table";
 
-const ProductList: React.FC = () => {
-  const [product, setProduct] = useState<AtivoType[]>([]);
+const AtivoList: React.FC = () => {
+  const [ativo, setAtivo] = useState<AtivoType[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchProduct = async () => {
+    const fetchAtivo = async () => {
       try {
         const data = await getAtivo();
-        setProduct(data);
+        setAtivo(data);
         setLoading(false);
       } catch (error) {
-        console.error("Error fetching products:", error);
+        console.error("Erro ao buscar ativos", error);
         setLoading(false);
       }
     };
-    fetchProduct();
+    fetchAtivo();
   }, []);
 
-  const productColumns: Column<any>[] = React.useMemo(
+  const ativoColumns: Column<any>[] = React.useMemo(
     () => [
       { Header: "ID", accessor: "id" },
       { Header: "Nome", accessor: "nome" },
@@ -41,9 +41,9 @@ const ProductList: React.FC = () => {
   return (
     <div>
       <h1 className="mb-8 text-2xl font-bold">ativos</h1>
-      <ProductTable data={product} columns={productColumns} />
+      <AtivoTable data={ativo} columns={ativoColumns} />
     </div>
   );
 };
 
-export default ProductList;
+export default AtivoList;

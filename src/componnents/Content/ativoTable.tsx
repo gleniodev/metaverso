@@ -1,13 +1,13 @@
 import { useTable, Column } from "react-table";
-import { ProductType } from "../../Types/ativoType";
+import { AtivoType } from "../../Types/ativoType";
 import "@/app/globals.css";
 
-interface productTableProps {
-  data: ProductType[];
+interface AtivoTableProps {
+  data: AtivoType[];
   columns: Column[];
 }
 
-export function ProductTable({ data, columns }: productTableProps) {
+export function AtivoTable({ data, columns }: AtivoTableProps) {
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
     useTable({
       columns,

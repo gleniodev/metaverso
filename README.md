@@ -2,6 +2,14 @@
 
 Este é um projeto de teste de conhecimento, uma aplicação de gerenciamento de investidores e investimentos construída com Next.js, TypeScript, React Hook Form, Zod para validação, ApexCharts para gráficos e Tailwind CSS para estilização.
 
+## Imagens do sistema
+
+![Alt text](./src/assets/dashboard.png)
+![Alt text](./src/assets/tabela2.png)
+![Alt text](./src/assets/formulario.png)
+![Alt text](./src/assets/confirmação%20de%20edição.png)
+![Alt text](./src/assets/confirmação%20de%20exclusão.png)
+
 ## Funcionalidades
 
 - Cadastro de Investidores

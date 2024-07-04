@@ -33,46 +33,7 @@ Este é um projeto de teste de conhecimento, uma aplicação de gerenciamento de
 
 ## Estrutura do Projeto
 
-metaverso-test/
-├── public/
-│ ├── favicon.ico
-│ └── ...
-├── src/
-│ ├── app/
-│ │ ├── dashboard/
-│ │ │ └── page.tsx
-│ │ ├── investidores/
-│ │ │ └── index.tsx
-│ │ ├── layout.tsx
-│ │ └── page.tsx
-│ ├── components/
-│ │ ├── Content/
-│ │ │ ├── investorForm.tsx
-│ │ │ ├── investorTable.tsx
-│ │ │ └── investorTable.tsx
-│ │ ├── Sidebar/
-│ │ │ ├── index.tsx
-│ │ │ └── logo.tsx
-│ │ └── Ui/
-│ │ ├── addButton.tsx
-│ │ ├── deleteButton.tsx
-│ │ └── editButton.tsx
-│ ├── services/
-│ │ ├── investorService.ts
-│ │ └── investmentService.ts
-│ ├── Types/
-│ │ ├── investorType.ts
-│ │ └── investmentType.ts
-│ ├── assets/
-│ │ └── ...
-│ ├── globals.css
-│ ├── layout.tsx
-│ └── page.tsx
-├── .eslintrc.json
-├── .gitignore
-├── package.json
-├── tsconfig.json
-└── ...
+![Alt text](./src/assets/estrtura.png)
 
 ## Instalação e Execução
 

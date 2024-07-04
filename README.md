@@ -4,11 +4,11 @@ Este é um projeto de teste de conhecimento, uma aplicação de gerenciamento de
 
 ## Imagens do sistema
 
-![Alt text](./src/assets/dashboard.png)
-![Alt text](./src/assets/tabela2.png)
-![Alt text](./src/assets/formulario.png)
-![Alt text](./src/assets/confirmação%20de%20edição.png)
-![Alt text](./src/assets/confirmação%20de%20exclusão.png)
+![dashboard](./src/assets/dashboard.png)
+![tabela](./src/assets/tabela2.png)
+![formulario](./src/assets/formulario.png)
+![edição](./src/assets/confirmação%20de%20edição.png)
+![exclusão](./src/assets/confirmação%20de%20exclusão.png)
 
 ## Funcionalidades
 
@@ -33,7 +33,7 @@ Este é um projeto de teste de conhecimento, uma aplicação de gerenciamento de
 
 ## Estrutura do Projeto
 
-![Alt text](./src/assets/estrtura.png)
+![estrutura](./src/assets/estrutura.png)
 
 ## Instalação e Execução
 

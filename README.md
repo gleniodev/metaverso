@@ -12,11 +12,10 @@ Este é um projeto de teste de conhecimento, uma aplicação de gerenciamento de
 
 ## Funcionalidades
 
-- Cadastro de Investidores
-- Listagem de Investidores
-- Edição de Investidores
-- Exclusão de Investidores
-- Visualização de Investimentos
+- Cadastro de Investidores e investimentos
+- Edição de Investidores e investimentos
+- Exclusão de Investidores e investimentos
+- Listagem de Investidores e investimentos
 - Dashboard com gráficos e resumos financeiros
 
 ## Tecnologias Utilizadas

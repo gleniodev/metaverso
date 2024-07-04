@@ -93,7 +93,7 @@ npm install -g json-server
 
 2. Inicie o JSON Server:
 
-json-server --watch db.json --port 3001
+npm run json-server
 
 ## Uso
 

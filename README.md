@@ -33,7 +33,7 @@ Este é um projeto de teste de conhecimento, uma aplicação de gerenciamento de
 
 ## Estrutura do Projeto
 
-![estrutura](./src/assets/estrutura.png)
+<img src="./src/assets/estrutura.png" alt="estrutura" max-width="30%">
 
 ## Instalação e Execução
 

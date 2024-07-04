@@ -1,39 +1,125 @@
-<<<<<<< HEAD
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Metaverso Test
 
-## Getting Started
+Este é um projeto de teste de conhecimento, uma aplicação de gerenciamento de investidores e investimentos construída com Next.js, TypeScript, React Hook Form, Zod para validação, ApexCharts para gráficos e Tailwind CSS para estilização.
 
-First, run the development server:
+## Funcionalidades
 
-```bash
+- Cadastro de Investidores
+- Listagem de Investidores
+- Edição de Investidores
+- Exclusão de Investidores
+- Visualização de Investimentos
+- Dashboard com gráficos e resumos financeiros
+
+## Tecnologias Utilizadas
+
+- [Next.js](https://nextjs.org/)
+- [React](https://reactjs.org/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [React Hook Form](https://react-hook-form.com/)
+- [Zod](https://zod.dev/)
+- [ApexCharts](https://apexcharts.com/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [Radix UI](https://www.radix-ui.com/)
+- [Axios](https://axios-http.com/)
+
+## Estrutura do Projeto
+
+metaverso-test/
+├── public/
+│ ├── favicon.ico
+│ └── ...
+├── src/
+│ ├── app/
+│ │ ├── dashboard/
+│ │ │ └── page.tsx
+│ │ ├── investidores/
+│ │ │ └── index.tsx
+│ │ ├── layout.tsx
+│ │ └── page.tsx
+│ ├── components/
+│ │ ├── Content/
+│ │ │ ├── investorForm.tsx
+│ │ │ ├── investorTable.tsx
+│ │ │ └── investorTable.tsx
+│ │ ├── Sidebar/
+│ │ │ ├── index.tsx
+│ │ │ └── logo.tsx
+│ │ └── Ui/
+│ │ ├── addButton.tsx
+│ │ ├── deleteButton.tsx
+│ │ └── editButton.tsx
+│ ├── services/
+│ │ ├── investorService.ts
+│ │ └── investmentService.ts
+│ ├── Types/
+│ │ ├── investorType.ts
+│ │ └── investmentType.ts
+│ ├── assets/
+│ │ └── ...
+│ ├── globals.css
+│ ├── layout.tsx
+│ └── page.tsx
+├── .eslintrc.json
+├── .gitignore
+├── package.json
+├── tsconfig.json
+└── ...
+
+## Instalação e Execução
+
+1. Clone o repositório:
+
+git clone https://github.com/seu-usuario/metaverso-test.git
+cd metaverso-test
+
+2. Instale as dependências:
+
+npm install
+
+3. Inicie o servidor de desenvolvimento:
+
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+4. Acesse a aplicação em
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+http://localhost:3000
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## Configuração do JSON Server
 
-## Learn More
+1. Instale o JSON Server globalmente (se ainda não tiver instalado)
 
-To learn more about Next.js, take a look at the following resources:
+npm install -g json-server
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+2. Inicie o JSON Server:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+json-server --watch db.json --port 3001
 
-## Deploy on Vercel
+## Uso
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Cadastro de Investidores
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
-=======
-# metaverso
-Teste de front-end para metaverso
->>>>>>> a3ca5cd6b3981e257ae9ff0fdc43e26928203440
+1. Navegue até a página de investidores (http://localhost:3000/investidores).
+2. Clique em "Adicionar".
+3. Preencha o formulário e clique em "Salvar".
+
+### Edição de Investidores
+
+1. Navegue até a página de investidores (http://localhost:3000/investidores).
+2. Clique no ícone de edição ao lado do investidor que deseja editar.
+3. Atualize os dados no formulário e clique em "Salvar".
+
+### Exclusão de Investidores
+
+1. Navegue até a página de investidores (http://localhost:3000/investidores).
+2. Clique no ícone de exclusão ao lado do investidor que deseja excluir.
+3. Confirme a exclusão no diálogo de confirmação.
+
+### CRUD de Investimentos segue o mesmo passo acima na URL
+
+(http://localhost:3000/investimentos).
+
+### No dashboard é possível visualizar os gráficos referentes a cada cliente
+
+1. Navegue até a página de dasboard (http://localhost:3000/dashboard).
+2. Selecione o cliente que deseja visualizar no dropdown.

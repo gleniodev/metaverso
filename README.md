@@ -50,8 +50,7 @@ npm install
 npm run dev
 
 4. Acesse a aplicação em
-
-http://localhost:3000
+   localhost:3000
 
 ## Configuração do JSON Server
 
@@ -67,27 +66,27 @@ npm run json-server
 
 ### Cadastro de Investidores
 
-1. Navegue até a página de investidores (http://localhost:3000/investidores).
+1. Navegue até a página de investidores localhost:3000/investidores.
 2. Clique em "Adicionar".
 3. Preencha o formulário e clique em "Salvar".
 
 ### Edição de Investidores
 
-1. Navegue até a página de investidores (http://localhost:3000/investidores).
+1. Navegue até a página de investidores localhost:3000/investidores.
 2. Clique no ícone de edição ao lado do investidor que deseja editar.
 3. Atualize os dados no formulário e clique em "Salvar".
 
 ### Exclusão de Investidores
 
-1. Navegue até a página de investidores (http://localhost:3000/investidores).
+1. Navegue até a página de investidores localhost:3000/investidores.
 2. Clique no ícone de exclusão ao lado do investidor que deseja excluir.
 3. Confirme a exclusão no diálogo de confirmação.
 
 ### CRUD de Investimentos segue o mesmo passo acima na URL
 
-(http://localhost:3000/investimentos).
+localhost:3000/investimentos.
 
 ### No dashboard é possível visualizar os gráficos referentes a cada cliente
 
-1. Navegue até a página de dasboard (http://localhost:3000/dashboard).
+1. Navegue até a página de dasboard localhost:3000/dashboard.
 2. Selecione o cliente que deseja visualizar no dropdown.
